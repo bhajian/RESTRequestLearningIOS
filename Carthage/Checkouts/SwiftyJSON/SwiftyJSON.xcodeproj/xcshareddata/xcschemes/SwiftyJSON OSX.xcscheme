@@ -14,10 +14,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4C36B4AB1D97CC8E00E61FBF"
-               BuildableName = "testCarthage.app"
-               BlueprintName = "testCarthage"
-               ReferencedContainer = "container:testCarthage.xcodeproj">
+               BlueprintIdentifier = "9C7DFC5A1A9102BD005AA3F7"
+               BuildableName = "SwiftyJSON.framework"
+               BlueprintName = "SwiftyJSON OSX"
+               ReferencedContainer = "container:SwiftyJSON.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9C7DFC641A9102BD005AA3F7"
+               BuildableName = "SwiftyJSON OSX Tests.xctest"
+               BlueprintName = "SwiftyJSON OSX Tests"
+               ReferencedContainer = "container:SwiftyJSON.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,30 +46,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4C36B4BF1D97CC8F00E61FBF"
-               BuildableName = "testCarthageTests.xctest"
-               BlueprintName = "testCarthageTests"
-               ReferencedContainer = "container:testCarthage.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4C36B4CA1D97CC8F00E61FBF"
-               BuildableName = "testCarthageUITests.xctest"
-               BlueprintName = "testCarthageUITests"
-               ReferencedContainer = "container:testCarthage.xcodeproj">
+               BlueprintIdentifier = "9C7DFC641A9102BD005AA3F7"
+               BuildableName = "SwiftyJSON OSX Tests.xctest"
+               BlueprintName = "SwiftyJSON OSX Tests"
+               ReferencedContainer = "container:SwiftyJSON.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4C36B4AB1D97CC8E00E61FBF"
-            BuildableName = "testCarthage.app"
-            BlueprintName = "testCarthage"
-            ReferencedContainer = "container:testCarthage.xcodeproj">
+            BlueprintIdentifier = "9C7DFC5A1A9102BD005AA3F7"
+            BuildableName = "SwiftyJSON.framework"
+            BlueprintName = "SwiftyJSON OSX"
+            ReferencedContainer = "container:SwiftyJSON.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -71,16 +75,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4C36B4AB1D97CC8E00E61FBF"
-            BuildableName = "testCarthage.app"
-            BlueprintName = "testCarthage"
-            ReferencedContainer = "container:testCarthage.xcodeproj">
+            BlueprintIdentifier = "9C7DFC5A1A9102BD005AA3F7"
+            BuildableName = "SwiftyJSON.framework"
+            BlueprintName = "SwiftyJSON OSX"
+            ReferencedContainer = "container:SwiftyJSON.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -90,16 +93,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4C36B4AB1D97CC8E00E61FBF"
-            BuildableName = "testCarthage.app"
-            BlueprintName = "testCarthage"
-            ReferencedContainer = "container:testCarthage.xcodeproj">
+            BlueprintIdentifier = "9C7DFC5A1A9102BD005AA3F7"
+            BuildableName = "SwiftyJSON.framework"
+            BlueprintName = "SwiftyJSON OSX"
+            ReferencedContainer = "container:SwiftyJSON.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
