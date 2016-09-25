@@ -10,9 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let apiManager = RestApiManager();
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let route = "http://localhost:3000/"
+        let request = URLRequest(url: URL(string: route + "users")!)
+        apiManager.makeGetRequest(request);
     }
 
     override func didReceiveMemoryWarning() {

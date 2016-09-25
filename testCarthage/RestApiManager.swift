@@ -17,7 +17,7 @@ class RestApiManager: NSObject {
     var session = URLSession(configuration: URLSessionConfiguration.default)
     var baseServiceUrl = "http://localhost:3000/"
 
-    private func makeGetRequest(_ request: URLRequest){
+    public func makeGetRequest(_ request: URLRequest){
         let task: URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
             if let data = data {
                 let response = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
@@ -29,19 +29,53 @@ class RestApiManager: NSObject {
     
     
     
-//    private func makeHTTPGetRequest(path: String, onCompletion: ServiceResponse) {
-//        let request = URLRequest(url: URL(string: path)!)
-//        
-//        let task = session.dataTask(with: request, completionHandler: {data, response, error -> Void in
-//            if let jsonData = data {
-//                let json:JSON = JSON(data: jsonData)
-//                onCompletion(json, error)
-//            } else {
-//                onCompletion(nil, error)
-//            }
-//        })
-//        task.resume()
-//    }
+    public func makeHTTPGetRequest(path: String, onCompletion: @escaping ServiceResponse) {
+        let request = URLRequest(url: URL(string: path)!)
+        
+        let task = session.dataTask(with: request, completionHandler: {data, response, error -> Void in
+            if let jsonData = data {
+                let json:JSON = JSON(data: jsonData)
+                onCompletion(json, error as NSError?)
+            } else {
+                onCompletion(nil, error as NSError?)
+            }
+        })
+        task.resume()
+    }
+    
+    
+    
+    
+        // MARK: Perform a POST Request
+        public func makeHTTPPostRequest(path: String, body: [String: AnyObject], onCompletion: @escaping ServiceResponse) {
+            let request = NSMutableURLRequest(url: NSURL(string: path)! as URL)
+    
+            // Set the method to POST
+            request.httpMethod = "POST"
+    
+            do {
+                // Set the POST body for the request
+                let jsonBody = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+                request.httpBody = jsonBody
+                
+    
+                let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                    if let jsonData = data {
+                        let json:JSON = JSON(data: jsonData)
+                        onCompletion(json, nil)
+                    } else {
+                        onCompletion(nil, error as NSError?)
+                    }
+                })
+                task.resume()
+            } catch {
+                // Create your personal error
+                onCompletion(nil, nil)
+            }
+        }
+
+    
+    
     
     
     
