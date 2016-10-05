@@ -61,31 +61,31 @@ public struct JSON {
      
      - parameter data:  The NSData used to convert to json.Top level object in data is an NSArray or NSDictionary
      - parameter opt:   The JSON serialization reading options. `.AllowFragments` by default.
-     - parameter error: error The NSErrorPointer used to return the error. `nil` by default.
+     - parameter error: The NSErrorPointer used to return the error. `nil` by default.
      
      - returns: The created JSON
      */
-    public init(data:Data, options opt: JSONSerialization.ReadingOptions = .allowFragments, error: NSErrorPointer? = nil) {
+    public init(data:Data, options opt: JSONSerialization.ReadingOptions = .allowFragments, error: NSErrorPointer = nil) {
         do {
             let object: Any = try JSONSerialization.jsonObject(with: data, options: opt)
             self.init(object)
         } catch let aError as NSError {
             if error != nil {
-                error??.pointee = aError
+                error?.pointee = aError
             }
             self.init(NSNull())
         }
     }
     
     /**
-     Create a JSON from JSON string
+     Creates a JSON from JSON string
      - parameter string: Normal json string like '{"a":"b"}'
      
      - returns: The created JSON
      */
     public static func parse(_ string:String) -> JSON {
         return string.data(using: String.Encoding.utf8)
-            .flatMap({JSON(data: $0)}) ?? JSON(NSNull())
+            .flatMap{ JSON(data: $0) } ?? JSON(NSNull())
     }
     
     /**
@@ -184,13 +184,13 @@ public struct JSON {
         }
     }
     
-    /// json type
+    /// JSON type
     public var type: Type { get { return _type } }
     
     /// Error in JSON
     public var error: NSError? { get { return self._error } }
     
-    /// The static null json
+    /// The static null JSON
     @available(*, unavailable, renamed:"null")
     public static var nullJSON: JSON { get { return null } }
     public static var null: JSON { get { return JSON(NSNull()) } }
@@ -208,6 +208,7 @@ public func ==(lhs: JSONIndex, rhs: JSONIndex) -> Bool {
         return left == right
     case (.dictionary(let left), .dictionary(let right)):
         return left == right
+    case (.null, .null): return true
     default:
         return false
     }
@@ -368,7 +369,7 @@ extension JSON {
     }
     
     /**
-     Find a json in the complex data structuresby using the Int/String's array.
+     Find a json in the complex data structures by using array of Int and/or String as path.
      
      - parameter path: The target json's path. Example:
      
@@ -400,7 +401,7 @@ extension JSON {
     }
     
     /**
-     Find a json in the complex data structures by using the Int/String's array.
+     Find a json in the complex data structures by using array of Int and/or String as path.
      
      - parameter path: The target json's path. Example:
      
@@ -779,8 +780,10 @@ extension JSON {
         }
     }
     public func exists() -> Bool{
-        if let errorValue = error , errorValue.code == ErrorNotExist{
-            return false
+        if let errorValue = error, errorValue.code == ErrorNotExist ||
+            errorValue.code == ErrorIndexOutOfBounds ||
+            errorValue.code == ErrorWrongType {
+                return false
         }
         return true
     }
@@ -790,12 +793,13 @@ extension JSON {
 extension JSON {
     
     //Optional URL
-    public var URL: NSURL? {
+    public var URL: URL? {
         get {
             switch self.type {
             case .string:
                 if let encodedString_ = self.rawString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) {
-                    return NSURL(string: encodedString_)
+                    // We have to use `Foundation.URL` otherwise it conflicts with the variable name.
+                    return Foundation.URL(string: encodedString_)
                 } else {
                     return nil
                 }

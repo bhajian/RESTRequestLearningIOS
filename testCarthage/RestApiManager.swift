@@ -15,7 +15,6 @@ class RestApiManager: NSObject {
     
 
     var session = URLSession(configuration: URLSessionConfiguration.default)
-    var baseServiceUrl = "http://localhost:3000/"
 
     public func makeGetRequest(_ request: URLRequest){
         let task: URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
@@ -47,13 +46,15 @@ class RestApiManager: NSObject {
     
     
         // MARK: Perform a POST Request
-        public func makeHTTPPostRequest(path: String, body: [String: AnyObject], onCompletion: @escaping ServiceResponse) {
+    public func makeHTTPPostRequest(path: String, body: [String: AnyObject], onCompletion: @escaping ServiceResponse) {
             let request = NSMutableURLRequest(url: NSURL(string: path)! as URL)
     
             // Set the method to POST
             request.httpMethod = "POST"
     
             do {
+                request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+
                 // Set the POST body for the request
                 let jsonBody = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
                 request.httpBody = jsonBody
@@ -72,41 +73,8 @@ class RestApiManager: NSObject {
                 // Create your personal error
                 onCompletion(nil, nil)
             }
-        }
+    }
 
     
-    
-    
-    
-    
-    
-//
-//    // MARK: Perform a POST Request
-//    private func makeHTTPPostRequest(path: String, body: [String: AnyObject], onCompletion: ServiceResponse) {
-//        let request = NSMutableURLRequest(URL: NSURL(string: path)!)
-//        
-//        // Set the method to POST
-//        request.HTTPMethod = "POST"
-//        
-//        do {
-//            // Set the POST body for the request
-//            let jsonBody = try NSJSONSerialization.dataWithJSONObject(body, options: .PrettyPrinted)
-//            request.HTTPBody = jsonBody
-//            let session = NSURLSession.sharedSession()
-//            
-//            let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-//                if let jsonData = data {
-//                    let json:JSON = JSON(data: jsonData)
-//                    onCompletion(json, nil)
-//                } else {
-//                    onCompletion(nil, error)
-//                }
-//            })
-//            task.resume()
-//        } catch {
-//            // Create your personal error
-//            onCompletion(nil, nil)
-//        }
-//    }
 
 }
